@@ -8,3 +8,11 @@ def draw_rectangle(turtle, width=100, height=50):
         turtle.left(90)
         turtle.forward(height)
         turtle.left(90)
+
+
+def draw_triangle(turtle, length=100):
+    for i in range(3):
+        turtle.forward(length)
+        turtle.left(120)
+
+
