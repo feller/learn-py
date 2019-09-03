@@ -30,6 +30,17 @@ def read_service(url):
     return r.json()
 
 
+def compare(domain, all):
+    for key in domain:
+        all_values = set(map(lambda x:x[key], all))
+    all_values.add(domain[key])
+    if (len(all_values) > 1):
+        print("{}: {}".format(key, all_values))
+
+
+new_prod = read_file('new_prod_environment.properties', '/home/ffeller/Downloads/')
+old_prod = read_file('old_prod_environment.properties', '/home/ffeller/Downloads/')
+
 domain = read_file('domain.properties', '/home/ffeller/Downloads/')
 prod = read_file('support/prod/conf/env/environment.properties')
 beta = read_file('support/beta/conf/env/environment.properties')
@@ -40,8 +51,10 @@ main = read_file('cfa-myo-domain/src/main/resources/conf/env/environment.propert
 
 all = [prod, beta, ic, rc, int_test, main]
 
-for key in domain:
-    all_values = set(map(lambda x:x[key], all))
-    all_values.add(domain[key])
-    if (len(all_values) > 1):
-        print("{}: {}".format(key, all_values))
+
+
+
+for key in old_prod:
+    if not (key in new_prod):
+        if not (key in domain):
+            print(key)
